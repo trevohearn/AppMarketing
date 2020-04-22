@@ -1,2 +1,5 @@
 #Folders to exclude
 Data/*
+
+#Files in current directory
+config.py
