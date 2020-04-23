@@ -22,20 +22,28 @@ def createTable(conn, table):
         print(table)
         print('table already exists')
 
-def addRow(conn, tableName, valuesList=[]):
-    cursor = conn.cursor()
-    values = ', '
-    strlist = [str(x) for x in valuesList]
-    result = values.join(strlist)
-    sqlstr = """
-    INSERT INTO {}
-    VALUES ({})
-    """.format(tableName, result)
+def AddRow(cursor, tableName, valuesList):
+    #values set to NOT NULL in apple schema
+    c = cursor
+    if (type(c) != sqlite3.Cursor):
+        print('cursor not of sqlite3 type')
+        return
+    if (type(c) == sqlite3.Connection):
+        c = c.cursor()
+    if (valuesList[1] == None or valuesList[2] == None or valuesList[5] == None or valuesList[9] == None):
+        print('Not Null value found in row {}'.format(valuesList[0]))
+        return None
+
+    deliminator = "', '"
+    results = deliminator.join([str(x) for x in valuesList])
+    #results = "'" + resultas + "'"
+    sqlstr = """INSERT INTO '{}' VALUES ('{}');""".format(tableName, results)
     try:
-        cursor.execute(sqlstr)
-        conn.commit()
-    except:
+        c.execute(sqlstr)
+        print('success')
+    except sqlite3.Error as e:
         print(tableName)
+        print(e)
         print('couldnt add row')
 
 def getRows(conn, tableName):
