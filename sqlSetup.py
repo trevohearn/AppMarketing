@@ -146,4 +146,21 @@ createTable(conn, google_table)
 addRow(conn, 'apple', appleTestStr)
 stuffs = getRows(conn, 'apple')
 print('this returned {}'.format(stuffs))
+
+
+# Open cleaded google data csv file
+# read in lnes with while loop
+f = open(file='googleDF.csv', mode='r')
+
+last_line = False
+#break while loop when list is length 0
+while last_line == False:
+    cur = f.readline()
+    values = (cur.split(','))[:-1]
+    if (len(values) < 14):
+        last_line == True
+        break;
+    else:
+        addRow(c, 'google', values)
+
 conn.close()
