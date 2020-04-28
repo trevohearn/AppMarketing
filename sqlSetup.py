@@ -164,3 +164,6 @@ while last_line == False:
         addRow(c, 'google', values)
 
 conn.close()
+
+#deal with rows that don't properly get added to table
+#test written methods in testing_databases.ipynb
