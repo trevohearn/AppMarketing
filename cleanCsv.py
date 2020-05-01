@@ -4,17 +4,24 @@ import re
 import datetime
 import warnings
 warnings.filterwarnings('ignore')
-
 # #dataframes
-# df_a = pd.read_csv('Data/app-store-apple-data-set-10k-apps/AppleStore.csv')
-# #df_a.set_index('id', inplace=True)
-# df_a.drop(columns='Unnamed: 0', inplace=True)
-# df_a_d = pd.read_csv('Data/app-store-apple-data-set-10k-apps/appleStore_description.csv')
-# df_a_all = df_a.join(df_a_d, how='right', lsuffix='id')
-# df_a_all.drop(columns=['idid', 'track_nameid', 'size_bytesid'], inplace=True)
-# df_g = pd.read_csv('Data/google-play-store-apps/googleplaystore.csv')
-# df_g_d = pd.read_csv('Data/google-play-store-apps/googleplaystore_user_reviews.csv')
+df_a = pd.read_csv('Data/app-store-apple-data-set-10k-apps/AppleStore.csv')
+df_a.set_index('id', inplace=True)
+df_a.drop(columns='Unnamed: 0', inplace=True)
+df_a_d = pd.read_csv('Data/app-store-apple-data-set-10k-apps/appleStore_description.csv')
+df_a_all = df_a.join(df_a_d, how='right', lsuffix='id')
+df_a_all.drop(columns=['idid', 'track_nameid', 'size_bytesid'], inplace=True)
+df_g = pd.read_csv('Data/google-play-store-apps/googleplaystore.csv')
+df_g_d = pd.read_csv('Data/google-play-store-apps/googleplaystore_user_reviews.csv')
 
+cleanDatabases()
+#import sqlSetup.py
+#load database
+#setup webscraping
+#add to database per successful scrape
+#update models
+#pickle cluster
+#repeat scrape to now
 ############################
 
 #clean methods
