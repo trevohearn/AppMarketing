@@ -3,7 +3,6 @@
 #SQL setup
 #testing file using sqlite3 for local database
 
-
 import sqlite3
 
 #sqlite cursor
@@ -22,6 +21,9 @@ def createTable(conn, table):
         print(table)
         print('table already exists')
 
+#given cursor to connection of sql database, table name, and list of values
+#add values to given table
+#values must be in accordance with table parameters
 def AddRow(cursor, tableName, valuesList):
     #values set to NOT NULL in apple schema
     c = cursor
@@ -46,9 +48,11 @@ def AddRow(cursor, tableName, valuesList):
         print(e)
         print('couldnt add row')
 
-def getRows(conn, tableName):
+#given connection to database and name of table
+#retrieve rows from table based on condition
+def getRows(conn, tableName, condition):
     cursor = conn.cursor()
-    sqlstr = 'SELECT * FROM {}'.format(tableName)
+    sqlstr = 'SELECT {} FROM {}'.format(condition, tableName)
     try:
         cursor.execute(sqlstr)
         return cursor.fetchall()
