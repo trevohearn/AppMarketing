@@ -11,6 +11,10 @@ Using clustering to help market your new app!
 # Clustering Analysis
 ## Agglomerative Clustering
 
+# Webscraping
+
+# Automatic Updating Process
+
 
 # Current Work in Progress
 ## Improving clustering algorithm / using multiple algorithms
