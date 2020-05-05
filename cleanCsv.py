@@ -79,6 +79,8 @@ def separateLetters(x):
         return f[0]
 
 #removes dollar sign
+#only works if $ is in the first position of string
+#return rest of string
 def dropdollarsign(x):
     if (x[0] == '$'):
         return x[1:]
@@ -108,7 +110,9 @@ def versionToDecimal(x):
 
 
 ######### initiate clean of dataframes ##########
-
+#cleans database of df_g
+### df_g needs to be global ###
+#returns nothing
 def cleanDatabases():
         #Size
     df_g.Size = df_g.Size.apply(separateLetters)
