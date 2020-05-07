@@ -7,7 +7,25 @@
 #!pip install Selenium
 
 import Selenium as sl
-import BeautifulSoup as bs
+from bs4 import BeautifulSoup
+import requests
+
+#Get webpage
+page = requests.get("http://dataquestio.github.io/web-scraping-pages/simple.html")
+bs = BeautifulSoup(page.content, 'html.parser')
+#requests attributes
+#page.status_code
+#page.content
+#
+#beautiful soup methods
+#bs.prettify()
+#bs.children
+#bs.find_all('p')
+#bs.find_all('p', class_='example-stuff')
+#bs.find('p')
+#bs.find() -> finds entire page
+#bs.select('div p') -> uses css tags
+
 
 ### SELENIUM METHODS ###
 
