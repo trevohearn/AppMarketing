@@ -17,6 +17,12 @@ bs = BeautifulSoup(page.content, 'html.parser')
 #page.status_code
 #page.content
 #
+
+
+
+### SELENIUM METHODS ###
+
+### BEAUTIFULSOUP METHODS ###
 #beautiful soup methods
 #bs.prettify()
 #bs.children
@@ -27,9 +33,6 @@ bs = BeautifulSoup(page.content, 'html.parser')
 #bs.select('div p') -> uses css tags
 
 
-### SELENIUM METHODS ###
-
-### BEAUTIFULSOUP METHODS ###
 
 #given HTML element
 #get parent elements
