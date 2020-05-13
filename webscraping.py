@@ -20,6 +20,14 @@ bs = BeautifulSoup(page.content, 'html.parser')
 
 
 
+### REQUESTS ###
+#get new page
+def getPage(url):
+    #add try catch block with error protection
+    return requests.get(url)
+
+
+
 ### SELENIUM METHODS ###
 
 ### BEAUTIFULSOUP METHODS ###
