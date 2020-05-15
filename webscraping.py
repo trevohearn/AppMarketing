@@ -21,6 +21,49 @@ bs = BeautifulSoup(page.content, 'html.parser')
 
 
 ### REQUESTS ###
+#session handling from requests library
+#session = requets.Session()
+#session.auth = ('user', 'pass')
+#session.headers.update({'x-test' : 'true'})
+# #cookies example
+# with requests.Session() as s:
+#     s.get('https://httpbin.org/cookies/set/sessioncookie/123456789')
+#or
+#session.get('https://example.com/headers', headers = {'x-test2' : true})
+#page.headers returns headers
+
+#example of sending a prepped request
+# from requests import Request, Session
+#
+# s = Session()
+#
+# req = Request('POST', url, data=data, headers=headers)
+# prepped = req.prepare()
+#
+# # do something with prepped.body
+# prepped.body = 'No, I want exactly this as the body.'
+#
+# # do something with prepped.headers
+# del prepped.headers['Content-Type']
+#
+# resp = s.send(prepped,
+#     stream=stream,
+#     verify=verify,
+#     proxies=proxies,
+#     cert=cert,
+#     timeout=timeout
+# )
+
+
+
+#create a session
+def session():
+    return reqeusts.Session()
+def authenticate(session, username, password):
+    session.auth = (username, password)
+
+
+
 #get new page
 def getPage(url):
     #add try catch block with error protection
