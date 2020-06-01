@@ -62,7 +62,7 @@ def separateLetters(x):
             if x.isdigit(): #only numbers
                     return float(x)
             else: #not convertible
-                print('different combination of letters and numbers: {}'.format(x))
+                #print('different combination of letters and numbers: {}'.format(x))
                 return x
 
     #res[0] = number, res[1], letter
@@ -71,7 +71,7 @@ def separateLetters(x):
     elif f[1] == 'M': #1e6
         return (f[0] * 1000000)
     else:
-        print('different letter, pls update : {}'.format(f[1]))
+        #print('different letter, pls update : {}'.format(f[1]))
         return f[0]
 
 #removes dollar sign
@@ -105,7 +105,7 @@ def versionToDecimal(x):
 
 
 #returns list of top genres per number of clusters sent
-def testCluster(X, n = 30, name = 'Label', df_g=df_g, genre='Genres'):
+def testCluster(X,df_g, n = 30, name = 'Label', genre='Genres'):
     agc = AgglomerativeClustering(n_clusters = n)
     agc_minmax = agc.fit(X)
     df_g[name] = agc_minmax.labels_
@@ -165,9 +165,7 @@ def cleanDFG(df_g):
 
     #last updated
     df_g['Last Updated'] = pd.to_datetime(df_g['Last Updated'], format='%B %d, %Y', errors='coerce')
-    print('before createName Features')
     df_g = createNameFeatures(df_g, 'App')
-    print('after createName Features')
     return df_g
 
 def createNameFeatures(frame, column):
@@ -177,6 +175,10 @@ def createNameFeatures(frame, column):
                 'l', 'm', 'n', 'p', 'q','r','s','t','v',
                 'w','x','y','z']
     vowels = ['a', 'e','i', 'o', 'u']
+    alphabet = {'a' : 0, 'e' : 0,'i' : 0, 'o' : 0, 'u' : 0,
+    'b' : 0, 'c' : 0, 'd' : 0, 'f' : 0,'g' : 0,'h' : 0 ,'j' : 0, 'k' : 0,
+    'l' : 0, 'm' : 0, 'n' : 0, 'p' : 0, 'q' : 0,'r' : 0,'s' : 0,'t' : 0,'v' : 0,
+    'w' : 0,'x' : 0,'y' : 0 ,'z' : 0}
     #count letters
     df['nameLength'] = df[column].apply(lambda x : len(x))
     #count words
