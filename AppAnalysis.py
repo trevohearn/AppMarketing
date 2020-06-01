@@ -11,10 +11,10 @@ def Appanalysis(genre, App):
     #make train test split
     #X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 1)
 
-    print('Input Genre:')
+    #print('Input Genre:')
     #genre = str(input()).strip("""!@#$%^&*()_-+={}|\[]:";',.<>?/~`'""").title()
-    print('Input App Name')
-    App = str(input()).strip("""!@#$%^&*()_-+={}|\[]:";',.<>?/~`'""").title()
+    #print('Input App Name')
+    #App = str(input()).strip("""!@#$%^&*()_-+={}|\[]:";',.<>?/~`'""").title()
     vals = {'App' : App, 'Category' : genre, 'Rating' : 0,
             'Reviews' : '0', 'Size' : '0', 'Installs' : '0', 'Type' : 'Free',
             'Price' : '0', 'Content Rating' : 'Everyone', 'Genres' : genre,
@@ -59,7 +59,7 @@ def Appanalysis(genre, App):
         #get set in which new app resides
         df_app = df[df['Label'] == cluster]
         #your cluster statistics
-        print(df_app.Rating.describe())
+        #print(df_app.Rating.describe())
         dfsets = []
         for num in range(10):
             dfsets.append(df[df['Label'] == num])
@@ -73,16 +73,16 @@ def Appanalysis(genre, App):
             means.append(curMean)
         deviation = s.stdev(means)
         m = s.mean(means)
-        print('Standard Deviation of cluster averages: {}'.format(deviation))
-        print('Mean of cluster averages: {}'.format(m))
-        print('Your cluster install average: {}'.format(means[cluster]))
+        #print('Standard Deviation of cluster averages: {}'.format(deviation))
+        #print('Mean of cluster averages: {}'.format(m))
+        #print('Your cluster install average: {}'.format(means[cluster]))
         ymean = means[cluster]
         deltamean = abs(ymean - m)
         deviationsaway = deltamean / deviation
-        print ('you are {} deviation away from the mean'.format(deviationsaway))
-        print('Your app will have an average rating of {}'.format(df_app.Rating.mean()))
-        print('Your app will have an average of {} reviews'.format(df_app.Reviews.mean()))
-        return {'ymean' : ymean, 'deviation_of_means' : deviation, 'means' : means, 'mean_of_means' : m, 'df_genre' : df}
+        #print ('you are {} deviation away from the mean'.format(deviationsaway))
+        #print('Your app will have an average rating of {}'.format(df_app.Rating.mean()))
+        #print('Your app will have an average of {} reviews'.format(df_app.Reviews.mean()))
+        return {'ymean' : ymean, 'deviation_of_means' : deviation, 'means' : means, 'mean_of_means' : m, 'df_genre' : df_app}
         # for col in df.columns:
     #     print(df[col].describe())
     #     print(' - ')
@@ -91,9 +91,10 @@ def Appanalysis(genre, App):
 
     genreStats = {}
     for num, d in enumerate(dfs):
-        print('----------------')
-        print('Your app statistics in {} genre'.format(topGenres[num]))
+        #print('----------------')
+        #print('Your app statistics in {} genre'.format(topGenres[num]))
         genreStats[topGenres[num]] = createStats(d, clusters[num])
+    #print(genreStats)
     return genreStats
     # for num, t in enumerate(topGenres):
     #     print('{}'.format(t))
