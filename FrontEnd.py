@@ -35,11 +35,17 @@ app.layout = html.Div(
                 type=ALLOWED_TYPES[0],
                 value='Facebook',
                 debounce=True),
+        dcc.Input(id='input5',
+                type='text',
+                value=2,
+                debounce=True),
         html.Div([
-            dcc.Graph(id='whereitgoes')
-        ])
+            dcc.Graph(id='whereitgoes'),
+            dcc.Graph(id='whereitgoes2')
+        ]),
 
     ]
+    + [html.Div(id='out-all-types')]
     # ,
     # dcc.Graph(figure=fig)
 )
@@ -47,8 +53,6 @@ app.layout = html.Div(
 
 
 def update_output(input1, input2):
-    print(input1)
-    print(input2)
     if ((len(input1) > 0) & (len(input2) > 0)):
         genrestats = a.Appanalysis(input1, input2)
         allmeans = []
@@ -70,16 +74,20 @@ def update_output(input1, input2):
 
 
 @app.callback(
+    Output("out-all-types", "children"),
+    [Input('input1', 'value'),
+     Input('input2', 'value')]
+)
+def thenextmethod(genre, name):
+    return '|'.join([genre, name])
+@app.callback(
     Output("whereitgoes", "figure"),
     [Input('input1', 'value'),
      Input('input2', 'value')]
 )
 def callback(genre, name):
-    print('in callback')
     genrestats = a.Appanalysis(genre, name)
     genres = list(genrestats.keys())
-    print('___________----------------______________________-------asdfasdfaf')
-    print(genres)
     allmeans = [genrestats[g]['mean_of_means'] for g in genrestats ]
     ymeans = [genrestats[g]['ymean'] for g in genrestats ]
     trace1 = {'data' : [
@@ -130,6 +138,12 @@ def callback(genre, name):
         # }
     #return update_output(genre, name)
 
+## stuff to look into ##
+#dash.callback_context to distinguish trigger of callback
+
+## dcc Checklist ##
+# dcc.Checklist(options=[{'label1' : genre, 'value' : 'NYC'},
+#         {'label2' : name, 'value' : 'something else'}], value=['MTL', 'SF'])
 
 #def getFigure(df, genre):
 
@@ -142,6 +156,21 @@ def callback(genre, name):
     # # ax2.legend('Yours')
     # plt.figure(figsize=(1,15))
     # plt.show();
+
+@app.callback(Output('whereitgoes2', 'figure'),
+              [Input('input5', 'value')]
+)
+def functionUsed(input5):
+    trace = {'data' : [ {
+                      'x' : [input5, input5, input5],
+                      'y' : [input5, input5, input5],
+                      'name' : 'your value',
+                      'type' : 'bar'
+                    }
+                   ],
+              'layout' : go.Layout(title='Graph title')
+             }
+    return trace
 
 
 app.run_server(debug=True, use_reloader=False)
