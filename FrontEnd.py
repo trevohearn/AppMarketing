@@ -10,7 +10,8 @@ import AppAnalysis as a
 #genrestats = a.Appanalysis('Dating', 'Facebook')
 
 fig = go.Figure() #or any Plotly Express Funct
-
+genrestats = a.Appanalysis('Dating', 'Facebook')
+stats = genrestats['Tools']
 app = dash.Dash(__name__)
 
 ALLOWED_TYPES = ('text', 'number', 'password',
@@ -39,13 +40,17 @@ app.layout = html.Div(
                 type='text',
                 value=2,
                 debounce=True),
-        html.Div([
-            dcc.Graph(id='whereitgoes'),
-            dcc.Graph(id='whereitgoes2')
-        ]),
-
+        dcc.Graph(id='whereitgoes'),
+        dcc.Graph(id='whereitgoes2')
     ]
-    + [html.Div(id='out-all-types')]
+        # [
+        #     dcc.Graph(id='whereitgoes'),
+        #     dcc.Graph(id='whereitgoes2')
+        # ]
+
+    #
+    # ]
+    # + [html.Div(id='out-all-types')]
     # ,
     # dcc.Graph(figure=fig)
 )
@@ -73,13 +78,13 @@ def update_output(input1, input2):
         return {'data' : [], 'layout' : go.Layout(title='None', barmode='stack')}
 
 
-@app.callback(
-    Output("out-all-types", "children"),
-    [Input('input1', 'value'),
-     Input('input2', 'value')]
-)
-def thenextmethod(genre, name):
-    return '|'.join([genre, name])
+# @app.callback(
+#     Output("out-all-types", "children"),
+#     [Input('input1', 'value'),
+#      Input('input2', 'value')]
+# )
+# def thenextmethod(genre, name):
+#     return '|'.join([genre, name])
 @app.callback(
     Output("whereitgoes", "figure"),
     [Input('input1', 'value'),
@@ -90,6 +95,9 @@ def callback(genre, name):
     genres = list(genrestats.keys())
     allmeans = [genrestats[g]['mean_of_means'] for g in genrestats ]
     ymeans = [genrestats[g]['ymean'] for g in genrestats ]
+    bestmean = max(ymeans)
+    bestgenre = ymeans.index(bestmean)
+    stats = genrestats[genres[bestgenre]]
     trace1 = {'data' : [
                 {
                     'x' : genres,
@@ -114,6 +122,34 @@ def callback(genre, name):
                     barmode = 'group')
         }
     return trace1
+@app.callback(Output('whereitgoes2', 'figure'),
+              [Input('input1', 'value'), Input('input2', 'value')]
+              )
+def piggyback(useless, moreuseless):
+    clusters = []
+    for cluster, x in enumerate(stats['means']):
+        clusters.append('Cluster {}'.format(cluster))
+    trace = {'data' : [
+                {
+                    'x' : clusters,
+                    'y' : stats['means'],
+                    'name' : 'Averages',
+                    'type' : 'bar'
+                },
+                {
+                    'x' : clusters,
+                    'y' : stats['deviation_of_means'],
+                    'name' : 'Deviations',
+                    'type' : 'bar'
+                }
+            ],
+            'layout' : go.Layout(
+            title = 'Your cluster Groups For the Top Genre',
+            barmode = 'group')
+    }
+    return trace
+    # else:
+    #     return {'data': [], 'layout' : go.Layout()}
         #     {'data': [
         #         {
         #             'x': [1, 2, 3, 4],
@@ -156,21 +192,5 @@ def callback(genre, name):
     # # ax2.legend('Yours')
     # plt.figure(figsize=(1,15))
     # plt.show();
-
-@app.callback(Output('whereitgoes2', 'figure'),
-              [Input('input5', 'value')]
-)
-def functionUsed(input5):
-    trace = {'data' : [ {
-                      'x' : [input5, input5, input5],
-                      'y' : [input5, input5, input5],
-                      'name' : 'your value',
-                      'type' : 'bar'
-                    }
-                   ],
-              'layout' : go.Layout(title='Graph title')
-             }
-    return trace
-
 
 app.run_server(debug=True, use_reloader=False)
