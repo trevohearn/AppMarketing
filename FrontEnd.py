@@ -12,6 +12,7 @@ import AppAnalysis as a
 fig = go.Figure() #or any Plotly Express Funct
 genrestats = a.Appanalysis('Dating', 'Facebook')
 stats = genrestats['Tools']
+flag = False
 app = dash.Dash(__name__)
 
 ALLOWED_TYPES = ('text', 'number', 'password',
@@ -121,33 +122,54 @@ def callback(genre, name):
             'layout' : go.Layout(title='Your App Rating Relative To Each Genre',
                     barmode = 'group')
         }
+    #piggyback(Output('whereitgoes2', 'figure'), [Input('input1', 'value'), Input('input2', 'value')])
     return trace1
+
+# for the second gaph of clusters
+# @app.callback(Output('whereitgoes2', 'figure'),
+#               [Input('input1', 'value'), Input('input2', 'value')]
+#               )
+# def piggyback(useless, moreuseless):
+#     clusters = []
+#     for cluster, x in enumerate(stats['means']):
+#         clusters.append('Cluster {}'.format(cluster))
+#     trace = {'data' : [
+#                 {
+#                     'x' : clusters,
+#                     'y' : stats['means'],
+#                     'name' : 'Averages',
+#                     'type' : 'bar'
+#                 },
+#                 {
+#                     'x' : clusters,
+#                     'y' : [stats['deviation_of_means'] for c in clusters],
+#                     'name' : 'Cluster standard deviation',
+#                     'type' : 'bar'
+#                     # 'mode' : 'markers',
+#                     # 'marker' : {'size' : 15}
+#
+#                 }
+#             ],
+#             'layout' : go.Layout(
+#             title = 'Your cluster Groups For the Top Genre',
+#             barmode = 'group')
+#     }
+#     return trace
+
+#for the table of your genre you picked
 @app.callback(Output('whereitgoes2', 'figure'),
-              [Input('input1', 'value'), Input('input2', 'value')]
-              )
-def piggyback(useless, moreuseless):
-    clusters = []
-    for cluster, x in enumerate(stats['means']):
-        clusters.append('Cluster {}'.format(cluster))
-    trace = {'data' : [
-                {
-                    'x' : clusters,
-                    'y' : stats['means'],
-                    'name' : 'Averages',
-                    'type' : 'bar'
-                },
-                {
-                    'x' : clusters,
-                    'y' : stats['deviation_of_means'],
-                    'name' : 'Deviations',
-                    'type' : 'bar'
-                }
-            ],
-            'layout' : go.Layout(
-            title = 'Your cluster Groups For the Top Genre',
-            barmode = 'group')
-    }
-    return trace
+            [Input('input1', 'vaue'), Input('input2', 'value')]
+)
+def makeTable(genre, name):
+
+
+
+
+
+
+
+
+
     # else:
     #     return {'data': [], 'layout' : go.Layout()}
         #     {'data': [
@@ -193,4 +215,4 @@ def piggyback(useless, moreuseless):
     # plt.figure(figsize=(1,15))
     # plt.show();
 
-app.run_server(debug=True, use_reloader=False)
+app.run_server(debug=True)#, use_reloader=False
