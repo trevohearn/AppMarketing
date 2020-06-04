@@ -42,7 +42,7 @@ app.layout = html.Div(
                 value=2,
                 debounce=True),
         dcc.Graph(id='whereitgoes'),
-        dcc.Graph(id='whereitgoes2')
+        #dcc.Graph(id='whereitgoes2')
     ]
         # [
         #     dcc.Graph(id='whereitgoes'),
@@ -86,6 +86,7 @@ def update_output(input1, input2):
 # )
 # def thenextmethod(genre, name):
 #     return '|'.join([genre, name])
+
 @app.callback(
     Output("whereitgoes", "figure"),
     [Input('input1', 'value'),
@@ -157,10 +158,10 @@ def callback(genre, name):
 #     return trace
 
 #for the table of your genre you picked
-@app.callback(Output('whereitgoes2', 'figure'),
-            [Input('input1', 'vaue'), Input('input2', 'value')]
-)
-def makeTable(genre, name):
+# @app.callback(Output('whereitgoes2', 'figure'),
+#             [Input('input1', 'vaue'), Input('input2', 'value')]
+# )
+# def makeTable(genre, name):
 
 
 
