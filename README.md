@@ -9,7 +9,8 @@
 - Agglomerative Clustering
 - Anonymous based, creates 10 clusters in each genre
 - Your app name falls into one of those clusters determining how well it will do!
-!['Cluster Analysis at Terminal']('https://github.com/trevohearn/AppMarketing/blob/master/images/ClusterAnalysisExample_terminal.png')
+
+!['Cluster Analysis at Terminal']('https://github.com/trevohearn/AppMarketing/blob/master/images/ClusterAnalysisExample_terminal.png)
 
 # Current Work in Progress
 - Improve clustering algorithm / using multiple algorithms
