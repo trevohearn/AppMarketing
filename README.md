@@ -3,7 +3,7 @@
 - Name analysis on over 10,000 apps using 30 unique features
 
 ## Front-end
-!['LocalServerPic']('https://github.com/trevohearn/AppMarketing/blob/master/images/Frontend_Appanalysis.png' =400x400)
+!['LocalServer']('https://github.com/trevohearn/AppMarketing/blob/master/images/Frontend_Appanalysis.png?s=400')
 
 # Clustering Analysis
 - Agglomerative Clustering
