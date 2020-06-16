@@ -1,3 +1,6 @@
+#Trevor O'Hearn
+#Application name analysis
+#Front end to show graphs
 import plotly.graph_objects as go #or plotly.express as px
 import plotly.express as px
 import dash
